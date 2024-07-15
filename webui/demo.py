@@ -11,7 +11,7 @@ def greet(query):
         './ragtest',
         0,
         'Multiple Paragraphs',
-        '"What is machinelearning?"',
+        query,
     )
 
 
@@ -20,6 +20,6 @@ def greet(query):
 # fn,inputs,outputs都是必填函数
 demo = gr.Interface(fn=greet, inputs="text", outputs="text")
 
-
+# "What is machinelearning?"'
 # python -m graphrag.query --root ./ragtest --method global "What is machinelearning?"
 demo.launch(share=True)

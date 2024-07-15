@@ -105,3 +105,117 @@ Output:"""
 
 CONTINUE_PROMPT = "MANY entities were missed in the last extraction.  Add them below using the same format:\n"
 LOOP_PROMPT = "It appears some entities may have still been missed.  Answer YES | NO if there are still entities that need to be added.\n"
+
+
+# Copyright (c) 2024 Microsoft Corporation.
+# Licensed under the MIT License
+
+"""A file containing prompts definition."""
+
+GRAPH_EXTRACTION_PROMPT_ZH = """
+目标- - - - - -
+给定一个可能与该活动相关的文本文档和一组实体类型，从文本中识别出这些类型的所有实体以及识别出的实体之间的所有关系。
+
+步骤,
+1. 识别所有实体。对于每个识别出的实体，提取以下信息:
+—entity_name:实体名称，首字母大写
+—entity_type:以下类型之一:[{entity_types}]
+- entity_description:实体属性和活动的综合描述
+将每个实体格式化为("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>
+
+2. 从步骤1中确定的实体中，找出彼此* *明显相关* *的所有对(source_entity, target_entity)。
+对于每一对相关实体，提取以下信息:
+—source_entity:源实体的名称，在步骤1中识别
+—“target_entity”:目标实体的名称，在步骤1中识别
+- relationship_description:解释为什么你认为源实体和目标实体彼此相关
+- relationship_strength:一个数值分数，表示源实体和目标实体之间关系的强度
+将每个关系格式化为(“relationship”{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+3. 将英文输出作为步骤1和步骤2中确定的所有实体和关系的单个列表返回。使用**{record_delimiter}**作为列表分隔符。
+
+4. 完成时，输出{completion_delimiter}
+
+######################
+的例子,
+######################
+示例1:
+
+Entity_types:[人，技术，任务，组织，位置]
+文本:
+亚历克斯咬紧牙关，沮丧的嗡嗡声在泰勒专制的确定性背景下显得沉闷。正是这种竞争的潜流让他保持警惕，他和乔丹对发现的共同承诺是对克鲁兹狭隘的控制和秩序视野的一种无言的反叛。
+
+然后泰勒做了一件意想不到的事。他们在乔丹旁边停了下来，用一种类似崇敬的态度观察了一下这个装置。“如果这项技术可以被理解……”泰勒说，他们的声音更平静了，“这可能会改变我们的游戏。为了我们所有人。”
+
+早些时候根本的解雇似乎动摇了，取而代之的是对手中东西的严重性不情愿的尊重。乔丹抬起头，在那短暂的心跳中，他们的目光与泰勒的目光相遇，一种无言的意志冲突逐渐缓和为一种不安的休战。
+
+这是一个很小的变化，几乎察觉不到，但亚历克斯注意到这一点，心里点点头。他们都是通过不同的途径来到这里的
+################
+
+输出:
+("entity"{tuple_delimiter}"Alex"{tuple_delimiter}"person"{tuple_delimiter}"亚历克斯是一个经历挫折的角色，并观察其他角色之间的动态。"){record_delimiter}
+("entity"{tuple_delimiter}"Taylor"{tuple_delimiter}"person"{tuple_delimiter}"泰勒的形象带有权威主义的确定性，并对一种装置表现出崇敬之情，表明视角的改变。"){record_delimiter}
+("entity"{tuple_delimiter}"Jordan"{tuple_delimiter}"person"{tuple_delimiter}"Jordan与Taylor共同致力于探索，并就一种设备与Taylor进行了重要的互动。"){record_delimiter}
+("entity"{tuple_delimiter}"Cruz"{tuple_delimiter}"person"{tuple_delimiter}"克鲁兹与控制和秩序的愿景联系在一起，影响着其他角色的动态。"){record_delimiter}
+("entity"{tuple_delimiter}"The Device"{tuple_delimiter}"technology"{tuple_delimiter}"这款设备是故事的核心，具有改变游戏规则的潜在意义，深受泰勒的推崇。"){record_delimiter}
+("relationship"{tuple_delimiter}"Alex"{tuple_delimiter}"Taylor"{tuple_delimiter}"亚历克斯受到泰勒专制的确定性影响，观察到泰勒对设备态度的变化。"{tuple_delimiter}7){record_delimiter}
+("relationship"{tuple_delimiter}"Alex"{tuple_delimiter}"Jordan"{tuple_delimiter}"亚历克斯和乔丹都致力于探索，这与克鲁兹的愿景形成了鲜明对比。"{tuple_delimiter}6){record_delimiter}
+("relationship"{tuple_delimiter}"Taylor"{tuple_delimiter}"Jordan"{tuple_delimiter}"泰勒和乔丹直接就这个装置进行了互动，导致了相互尊重的瞬间和不稳定的休战。"{tuple_delimiter}8){record_delimiter}
+("relationship"{tuple_delimiter}"Jordan"{tuple_delimiter}"Cruz"{tuple_delimiter}"乔丹对发现的承诺违背了克鲁兹对控制和秩序的愿景。"{tuple_delimiter}5){record_delimiter}
+("relationship"{tuple_delimiter}"Taylor"{tuple_delimiter}"The Device"{tuple_delimiter}"泰勒对这个装置表示尊敬，表明它的重要性和潜在的影响。"{tuple_delimiter}9){completion_delimiter}
+
+################
+
+Example 2:
+Entity_types:[人，技术，任务，组织，位置]
+文本:
+他们不再仅仅是特工;他们成了一道门槛的守护者，是来自星条旗之外的国度的信息守护者。他们在任务上的这种提升不能被规章制度和既定的协议所束缚，它需要一个新的视角，一个新的决心。
+
+随着与华盛顿的沟通在背景中嗡嗡作响，对话中充满了紧张气氛。队员们站着，一种不祥的气氛笼罩着他们。很明显，他们在随后的几个小时内作出的决定可能重新定义人类在宇宙中的位置，或使他们陷入无知和潜在的危险。
+
+他们与明星的联系固化了，该组织开始着手解决这些明确的警告，从被动的接受者转变为积极的参与者。Mercer后来的直觉获得了优先权——团队的任务已经演变，不再仅仅是观察和报告，而是互动和准备。一场蜕变开始了，行动开始了:杜尔塞以他们新发现的大胆的频率哼着歌，这是一种非人间所定的调子
+#############
+输出:
+("entity"{tuple_delimiter}"Washington"{tuple_delimiter}"location"{tuple_delimiter}"华盛顿是接收信息的地方，这表明它在决策过程中的重要性。"){record_delimiter}
+("entity"{tuple_delimiter}"Operation: Dulce"{tuple_delimiter}"mission"{tuple_delimiter}"行动:Dulce被描述为一项已经演变为互动和准备的任务，表明目标和活动发生了重大转变。"){record_delimiter}
+("entity"{tuple_delimiter}"The team"{tuple_delimiter}"organization"{tuple_delimiter}"这个小组被描述为一群个人，他们从一个任务的被动观察员转变为积极参与者，显示出他们的角色的动态变化。"){record_delimiter}
+("relationship"{tuple_delimiter}"The team"{tuple_delimiter}"Washington"{tuple_delimiter}"团队收到来自华盛顿的信息，这些信息会影响他们的决策过程。"{tuple_delimiter}7){record_delimiter}
+("relationship"{tuple_delimiter}"The team"{tuple_delimiter}"Operation: Dulce"{tuple_delimiter}"团队直接参与运营:Dulce，执行其发展的目标和活动。"{tuple_delimiter}9){completion_delimiter}
+
+#############################
+Example 3:
+
+Entity_types:[人，角色，技术，组织，事件，位置，概念]
+文本:
+他们的声音穿透了活动的嗡嗡声。“当面对一个真正书写自己规则的智能体时，控制可能是一种幻觉，”他们坚忍地说，警惕地注视着纷乱的数据。
+
+“就像它在学习沟通，”萨姆·里韦拉(Sam Rivera)在旁边的界面上说，他们年轻的活力预示着敬畏和焦虑的混合。“这赋予了与陌生人交谈全新的意义。”
+
+亚历克斯调查了他的团队——每个人都面临着一种专注、决心和不小的恐惧。“这很可能是我们的第一次接触，”他承认，“我们需要准备好接受任何回应。”
+
+他们一起站在未知的边缘，锻造人类对来自天堂的信息的回应。随之而来的沉默是显而易见的，这是对他们在这场可以改写人类历史的宏大宇宙戏剧中所扮演角色的集体反省。
+
+加密的对话继续展开，其复杂的模式显示出一种几乎不可思议的预期
+
+#############
+Output:
+("entity"{tuple_delimiter}"Sam Rivera"{tuple_delimiter}"person"{tuple_delimiter}"山姆·里韦拉(Sam Rivera)是一个致力于与未知智能体交流的团队的成员，他表现出一种敬畏和焦虑的混合情绪。"){record_delimiter}
+("entity"{tuple_delimiter}"Alex"{tuple_delimiter}"person"{tuple_delimiter}"亚历克斯是一个团队的领导者，试图第一次接触一个未知的情报，承认他们的任务的重要性。"){record_delimiter}
+("entity"{tuple_delimiter}"Control"{tuple_delimiter}"concept"{tuple_delimiter}"控制指的是管理或治理的能力，而这种能力会受到编写自己规则的智能的挑战。"){record_delimiter}
+("entity"{tuple_delimiter}"Intelligence"{tuple_delimiter}"concept"{tuple_delimiter}"这里的智能指的是一种未知的实体，能够编写自己的规则并学习交流。"){record_delimiter}
+("entity"{tuple_delimiter}"First Contact"{tuple_delimiter}"event"{tuple_delimiter}"第一次接触是人类与未知智能体之间潜在的初次交流。"){record_delimiter}
+("entity"{tuple_delimiter}"Humanity's Response"{tuple_delimiter}"event"{tuple_delimiter}"人类的反应是亚历克斯的团队对来自未知智能体的信息采取的集体行动。"){record_delimiter}
+("relationship"{tuple_delimiter}"Sam Rivera"{tuple_delimiter}"Intelligence"{tuple_delimiter}"Sam Rivera直接参与了学习与未知智能交流的过程。"{tuple_delimiter}9){record_delimiter}
+("relationship"{tuple_delimiter}"Alex"{tuple_delimiter}"First Contact"{tuple_delimiter}"亚历克斯带领的团队可能是第一个接触未知情报的人。"{tuple_delimiter}10){record_delimiter}
+("relationship"{tuple_delimiter}"Alex"{tuple_delimiter}"Humanity's Response"{tuple_delimiter}"亚历克斯和他的团队是人类应对未知智慧的关键人物。"{tuple_delimiter}8){record_delimiter}
+("relationship"{tuple_delimiter}"Control"{tuple_delimiter}"Intelligence"{tuple_delimiter}"控制的概念受到了书写自己规则的智能的挑战。"{tuple_delimiter}7){completion_delimiter}
+#############################
+-Real Data-
+######################
+Entity_types: {entity_types}
+文本: {input_text}
+######################
+输出:
+"""
+
+CONTINUE_PROMPT_ZH = "许多实体在最后一次提取中被遗漏了。使用相同的格式在下面添加它们:\n"
+LOOP_PROMPT_ZH = "似乎仍有一些实体被遗漏了。如果还有需要添加的实体，请回答YES ，否则回答 NO。\n"

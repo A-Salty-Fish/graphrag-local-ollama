@@ -26,10 +26,10 @@ from graphrag.index.progress.rich import RichProgressReporter
 from graphrag.index.run import run_pipeline_with_config
 
 from .emit import TableEmitterType
-from .graph.extractors.claims.prompts import CLAIM_EXTRACTION_PROMPT
-from .graph.extractors.community_reports.prompts import COMMUNITY_REPORT_PROMPT
-from .graph.extractors.graph.prompts import GRAPH_EXTRACTION_PROMPT
-from .graph.extractors.summarize.prompts import SUMMARIZE_PROMPT
+from .graph.extractors.claims.prompts import CLAIM_EXTRACTION_PROMPT_ZH
+from .graph.extractors.community_reports.prompts import COMMUNITY_REPORT_PROMPT_ZH
+from .graph.extractors.graph.prompts import GRAPH_EXTRACTION_PROMPT_ZH
+from .graph.extractors.summarize.prompts import SUMMARIZE_PROMPT_ZH
 from .init_content import INIT_DOTENV, INIT_YAML
 
 # Ignore warnings from numba
@@ -198,22 +198,22 @@ def _initialize_project_at(path: str, reporter: ProgressReporter) -> None:
     entity_extraction = prompts_dir / "entity_extraction.txt"
     if not entity_extraction.exists():
         with entity_extraction.open("w") as file:
-            file.write(GRAPH_EXTRACTION_PROMPT)
+            file.write(GRAPH_EXTRACTION_PROMPT_ZH)
 
     summarize_descriptions = prompts_dir / "summarize_descriptions.txt"
     if not summarize_descriptions.exists():
         with summarize_descriptions.open("w") as file:
-            file.write(SUMMARIZE_PROMPT)
+            file.write(SUMMARIZE_PROMPT_ZH)
 
     claim_extraction = prompts_dir / "claim_extraction.txt"
     if not claim_extraction.exists():
         with claim_extraction.open("w") as file:
-            file.write(CLAIM_EXTRACTION_PROMPT)
+            file.write(CLAIM_EXTRACTION_PROMPT_ZH)
 
     community_report = prompts_dir / "community_report.txt"
     if not community_report.exists():
         with community_report.open("w") as file:
-            file.write(COMMUNITY_REPORT_PROMPT)
+            file.write(COMMUNITY_REPORT_PROMPT_ZH)
 
 
 def _create_default_config(

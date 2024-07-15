@@ -14,9 +14,9 @@ from graphrag.index.typing import ErrorHandlerFn
 from graphrag.llm import CompletionLLM
 
 from .prompts import (
-    CLAIM_EXTRACTION_PROMPT,
-    CONTINUE_PROMPT,
-    LOOP_PROMPT,
+    CLAIM_EXTRACTION_PROMPT_ZH,
+    CONTINUE_PROMPT_ZH,
+    LOOP_PROMPT_ZH,
 )
 
 DEFAULT_TUPLE_DELIMITER = "<|>"
@@ -66,7 +66,7 @@ class ClaimExtractor:
     ):
         """Init method definition."""
         self._llm = llm_invoker
-        self._extraction_prompt = extraction_prompt or CLAIM_EXTRACTION_PROMPT
+        self._extraction_prompt = extraction_prompt or CLAIM_EXTRACTION_PROMPT_ZH
         self._input_text_key = input_text_key or "input_text"
         self._input_entity_spec_key = input_entity_spec_key or "entity_specs"
         self._tuple_delimiter_key = tuple_delimiter_key or "tuple_delimiter"
@@ -175,7 +175,7 @@ class ClaimExtractor:
         # Repeat to ensure we maximize entity count
         for i in range(self._max_gleanings):
             glean_response = await self._llm(
-                CONTINUE_PROMPT,
+                CONTINUE_PROMPT_ZH,
                 name=f"extract-continuation-{i}",
                 history=response.history or [],
             )
@@ -189,7 +189,7 @@ class ClaimExtractor:
                 break
 
             continue_response = await self._llm(
-                LOOP_PROMPT,
+                LOOP_PROMPT_ZH,
                 name=f"extract-loopcheck-{i}",
                 history=glean_response.history or [],
                 model_parameters=self._loop_args,

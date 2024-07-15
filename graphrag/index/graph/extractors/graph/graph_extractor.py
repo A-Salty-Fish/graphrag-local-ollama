@@ -18,7 +18,7 @@ from graphrag.index.typing import ErrorHandlerFn
 from graphrag.index.utils import clean_str
 from graphrag.llm import CompletionLLM
 
-from .prompts import CONTINUE_PROMPT, GRAPH_EXTRACTION_PROMPT, LOOP_PROMPT
+from .prompts import CONTINUE_PROMPT_ZH, GRAPH_EXTRACTION_PROMPT_ZH, LOOP_PROMPT_ZH
 
 DEFAULT_TUPLE_DELIMITER = "<|>"
 DEFAULT_RECORD_DELIMITER = "##"
@@ -77,7 +77,7 @@ class GraphExtractor:
             completion_delimiter_key or "completion_delimiter"
         )
         self._entity_types_key = entity_types_key or "entity_types"
-        self._extraction_prompt = prompt or GRAPH_EXTRACTION_PROMPT
+        self._extraction_prompt = prompt or GRAPH_EXTRACTION_PROMPT_ZH
         self._max_gleanings = max_gleanings if max_gleanings is not None else 0
         self._on_error = on_error or (lambda _e, _s, _d: None)
 
@@ -155,7 +155,7 @@ class GraphExtractor:
         # Repeat to ensure we maximize entity count
         for i in range(self._max_gleanings):
             glean_response = await self._llm(
-                CONTINUE_PROMPT,
+                CONTINUE_PROMPT_ZH,
                 name=f"extract-continuation-{i}",
                 history=response.history or [],
             )
@@ -166,7 +166,7 @@ class GraphExtractor:
                 break
 
             continuation = await self._llm(
-                LOOP_PROMPT,
+                LOOP_PROMPT_ZH,
                 name=f"extract-loopcheck-{i}",
                 history=glean_response.history or [],
                 model_parameters=self._loop_args,

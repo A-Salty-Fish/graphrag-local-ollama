@@ -17,7 +17,7 @@ from graphrag.llm.types import (
 )
 
 from ._json import clean_up_json
-from ._prompts import JSON_CHECK_PROMPT
+from ._prompts import JSON_CHECK_PROMPT_ZH
 from .openai_configuration import OpenAIConfiguration
 from .types import OpenAIClientTypes
 from .utils import (
@@ -143,7 +143,7 @@ class OpenAIChatLLM(BaseLLM[CompletionInput, CompletionOutput]):
     ) -> LLMOutput[CompletionOutput]:
         name = kwargs.get("name") or "unknown"
         return await self._invoke(
-            JSON_CHECK_PROMPT,
+            JSON_CHECK_PROMPT_ZH,
             **{
                 **kwargs,
                 "variables": {"input_text": output},

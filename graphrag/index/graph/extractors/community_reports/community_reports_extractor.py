@@ -12,7 +12,7 @@ from graphrag.index.typing import ErrorHandlerFn
 from graphrag.index.utils import dict_has_keys_with_types
 from graphrag.llm import CompletionLLM
 
-from .prompts import COMMUNITY_REPORT_PROMPT
+from .prompts import COMMUNITY_REPORT_PROMPT_ZH
 
 log = logging.getLogger(__name__)
 
@@ -46,7 +46,7 @@ class CommunityReportsExtractor:
         """Init method definition."""
         self._llm = llm_invoker
         self._input_text_key = input_text_key or "input_text"
-        self._extraction_prompt = extraction_prompt or COMMUNITY_REPORT_PROMPT
+        self._extraction_prompt = extraction_prompt or COMMUNITY_REPORT_PROMPT_ZH
         self._on_error = on_error or (lambda _e, _s, _d: None)
         self._max_report_length = max_report_length or 1500
 

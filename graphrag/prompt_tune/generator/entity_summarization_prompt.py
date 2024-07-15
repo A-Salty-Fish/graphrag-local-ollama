@@ -5,7 +5,7 @@
 
 from pathlib import Path
 
-from graphrag.prompt_tune.template import ENTITY_SUMMARIZATION_PROMPT
+from graphrag.prompt_tune.template import ENTITY_SUMMARIZATION_PROMPT_ZH
 
 ENTITY_SUMMARIZATION_FILENAME = "summarize_descriptions.txt"
 
@@ -21,7 +21,7 @@ def create_entity_summarization_prompt(
     - persona (str): The persona to use for the entity summarization prompt
     - output_path (Path | None): The path to write the prompt to. Default is None. If None, the prompt is not written to a file. Default is None.
     """
-    prompt = ENTITY_SUMMARIZATION_PROMPT.format(persona=persona)
+    prompt = ENTITY_SUMMARIZATION_PROMPT_ZH.format(persona=persona)
 
     if output_path:
         output_path.mkdir(parents=True, exist_ok=True)

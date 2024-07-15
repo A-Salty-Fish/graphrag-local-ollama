@@ -5,7 +5,7 @@
 
 from pathlib import Path
 
-from graphrag.prompt_tune.template import COMMUNITY_REPORT_SUMMARIZATION_PROMPT
+from graphrag.prompt_tune.template import COMMUNITY_REPORT_SUMMARIZATION_PROMPT_ZH
 
 COMMUNITY_SUMMARIZATION_FILENAME = "community_report.txt"
 
@@ -27,7 +27,7 @@ def create_community_summarization_prompt(
     -------
     - str: The community summarization prompt
     """
-    prompt = COMMUNITY_REPORT_SUMMARIZATION_PROMPT.format(persona=persona, role=role)
+    prompt = COMMUNITY_REPORT_SUMMARIZATION_PROMPT_ZH.format(persona=persona, role=role)
 
     if output_path:
         output_path.mkdir(parents=True, exist_ok=True)

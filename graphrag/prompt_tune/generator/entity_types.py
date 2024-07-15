@@ -6,8 +6,8 @@
 from graphrag.llm.types.llm_types import CompletionLLM
 from graphrag.prompt_tune.generator.defaults import DEFAULT_TASK
 from graphrag.prompt_tune.prompt.entity_types import (
-    ENTITY_TYPE_GENERATION_JSON_PROMPT,
-    ENTITY_TYPE_GENERATION_PROMPT,
+    ENTITY_TYPE_GENERATION_JSON_PROMPT_ZH,
+    ENTITY_TYPE_GENERATION_PROMPT_ZH,
 )
 
 
@@ -30,9 +30,9 @@ async def generate_entity_types(
     docs_str = "\n".join(docs) if isinstance(docs, list) else docs
 
     entity_types_prompt = (
-        ENTITY_TYPE_GENERATION_JSON_PROMPT
+        ENTITY_TYPE_GENERATION_JSON_PROMPT_ZH
         if json_mode
-        else ENTITY_TYPE_GENERATION_PROMPT
+        else ENTITY_TYPE_GENERATION_PROMPT_ZH
     ).format(task=formatted_task, input_text=docs_str)
 
     history = [{"role": "system", "content": persona}]

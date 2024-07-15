@@ -8,11 +8,11 @@ from .graph_extractor import (
     GraphExtractionResult,
     GraphExtractor,
 )
-from .prompts import GRAPH_EXTRACTION_PROMPT
+from .prompts import GRAPH_EXTRACTION_PROMPT_ZH
 
 __all__ = [
     "DEFAULT_ENTITY_TYPES",
-    "GRAPH_EXTRACTION_PROMPT",
+    "GRAPH_EXTRACTION_PROMPT_ZH",
     "GraphExtractionResult",
     "GraphExtractor",
 ]

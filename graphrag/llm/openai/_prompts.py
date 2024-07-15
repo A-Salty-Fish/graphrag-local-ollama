@@ -37,3 +37,40 @@ Output: [{{"title": "abc", "summary": "def"}}, {{"title": "abc", "summary": "def
 # Real Data
 Text: {input_text}
 Output:"""
+
+
+JSON_CHECK_PROMPT_ZH = '''
+你会得到一个格式错误的JSON字符串，它会在JSON .loads期间抛出错误。
+它可能包含不必要的转义序列，或者在某处少了逗号或冒号。
+你的任务是修复这个字符串，并返回一个包含单个对象的格式良好的JSON字符串。
+消除任何不必要的转义序列。
+只返回有效的JSON，可以用JSON解析。负荷，没有评论。
+
+#例子
+-----------
+Text: {{ \\"title\\": \\"abc\\", \\"summary\\": \\"def\\" }}
+Output: {{"title": "abc", "summary": "def"}}
+-----------
+Text: {{"title": "abc", "summary": "def"
+Output: {{"title": "abc", "summary": "def"}}
+-----------
+Text: {{"title': "abc", 'summary": "def"
+Output: {{"title": "abc", "summary": "def"}}
+-----------
+Text: "{{"title": "abc", "summary": "def"}}"
+Output: {{"title": "abc", "summary": "def"}}
+-----------
+Text: [{{"title": "abc", "summary": "def"}}]
+Output: [{{"title": "abc", "summary": "def"}}]
+-----------
+Text: [{{"title": "abc", "summary": "def"}}, {{ \\"title\\": \\"abc\\", \\"summary\\": \\"def\\" }}]
+Output: [{{"title": "abc", "summary": "def"}}, {{"title": "abc", "summary": "def"}}]
+-----------
+Text: ```json\n[{{"title": "abc", "summary": "def"}}, {{ \\"title\\": \\"abc\\", \\"summary\\": \\"def\\" }}]```
+Output: [{{"title": "abc", "summary": "def"}}, {{"title": "abc", "summary": "def"}}]
+
+
+#真实数据
+Text:{input_text}
+Output:
+'''

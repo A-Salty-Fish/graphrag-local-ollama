@@ -8,9 +8,9 @@ import json
 
 from graphrag.llm.types.llm_types import CompletionLLM
 from graphrag.prompt_tune.prompt import (
-    ENTITY_RELATIONSHIPS_GENERATION_JSON_PROMPT,
-    ENTITY_RELATIONSHIPS_GENERATION_PROMPT,
-    UNTYPED_ENTITY_RELATIONSHIPS_GENERATION_PROMPT,
+    ENTITY_RELATIONSHIPS_GENERATION_JSON_PROMPT_ZH,
+    ENTITY_RELATIONSHIPS_GENERATION_PROMPT_ZH,
+    UNTYPED_ENTITY_RELATIONSHIPS_GENERATION_PROMPT_ZH,
 )
 
 MAX_EXAMPLES = 5
@@ -38,15 +38,15 @@ async def generate_entity_relationship_examples(
 
         messages = [
             (
-                ENTITY_RELATIONSHIPS_GENERATION_JSON_PROMPT
+                ENTITY_RELATIONSHIPS_GENERATION_JSON_PROMPT_ZH
                 if json_mode
-                else ENTITY_RELATIONSHIPS_GENERATION_PROMPT
+                else ENTITY_RELATIONSHIPS_GENERATION_PROMPT_ZH
             ).format(entity_types=entity_types_str, input_text=doc)
             for doc in docs_list
         ]
     else:
         messages = [
-            UNTYPED_ENTITY_RELATIONSHIPS_GENERATION_PROMPT.format(input_text=doc)
+            UNTYPED_ENTITY_RELATIONSHIPS_GENERATION_PROMPT_ZH.format(input_text=doc)
             for doc in docs_list
         ]
 

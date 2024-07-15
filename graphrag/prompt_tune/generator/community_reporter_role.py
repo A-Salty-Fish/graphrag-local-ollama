@@ -5,7 +5,7 @@
 
 from graphrag.llm.types.llm_types import CompletionLLM
 from graphrag.prompt_tune.prompt import (
-    GENERATE_COMMUNITY_REPORTER_ROLE_PROMPT,
+    GENERATE_COMMUNITY_REPORTER_ROLE_PROMPT_ZH,
 )
 
 
@@ -26,7 +26,7 @@ async def generate_community_reporter_role(
     - str: The generated domain prompt response.
     """
     docs_str = " ".join(docs) if isinstance(docs, list) else docs
-    domain_prompt = GENERATE_COMMUNITY_REPORTER_ROLE_PROMPT.format(
+    domain_prompt = GENERATE_COMMUNITY_REPORTER_ROLE_PROMPT_ZH.format(
         domain=domain, persona=persona, input_text=docs_str
     )
 

@@ -5,7 +5,7 @@
 
 from graphrag.llm.types.llm_types import CompletionLLM
 from graphrag.prompt_tune.generator.defaults import DEFAULT_TASK
-from graphrag.prompt_tune.prompt import GENERATE_PERSONA_PROMPT
+from graphrag.prompt_tune.prompt import GENERATE_PERSONA_PROMPT_ZH
 
 
 async def generate_persona(
@@ -20,7 +20,7 @@ async def generate_persona(
     - task (str): The task to generate a persona for. Default is DEFAULT_TASK
     """
     formatted_task = task.format(domain=domain)
-    persona_prompt = GENERATE_PERSONA_PROMPT.format(sample_task=formatted_task)
+    persona_prompt = GENERATE_PERSONA_PROMPT_ZH.format(sample_task=formatted_task)
 
     response = await llm(persona_prompt)
 

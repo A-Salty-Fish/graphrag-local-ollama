@@ -16,7 +16,7 @@ from graphrag.query.context_builder.conversation_history import (
 from graphrag.query.llm.base import BaseLLM, BaseLLMCallback
 from graphrag.query.llm.text_utils import num_tokens
 from graphrag.query.question_gen.base import BaseQuestionGen, QuestionResult
-from graphrag.query.question_gen.system_prompt import QUESTION_SYSTEM_PROMPT
+from graphrag.query.question_gen.system_prompt import QUESTION_SYSTEM_PROMPT_ZH
 
 log = logging.getLogger(__name__)
 
@@ -29,7 +29,7 @@ class LocalQuestionGen(BaseQuestionGen):
         llm: BaseLLM,
         context_builder: LocalContextBuilder,
         token_encoder: tiktoken.Encoding | None = None,
-        system_prompt: str = QUESTION_SYSTEM_PROMPT,
+        system_prompt: str = QUESTION_SYSTEM_PROMPT_ZH,
         callbacks: list[BaseLLMCallback] | None = None,
         llm_params: dict[str, Any] | None = None,
         context_builder_params: dict[str, Any] | None = None,

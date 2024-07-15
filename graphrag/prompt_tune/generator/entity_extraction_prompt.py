@@ -8,10 +8,10 @@ from pathlib import Path
 from graphrag.index.utils.tokens import num_tokens_from_string
 from graphrag.prompt_tune.template import (
     EXAMPLE_EXTRACTION_TEMPLATE,
-    GRAPH_EXTRACTION_JSON_PROMPT,
-    GRAPH_EXTRACTION_PROMPT,
+    GRAPH_EXTRACTION_JSON_PROMPT_ZH,
+    GRAPH_EXTRACTION_PROMPT_ZH,
     UNTYPED_EXAMPLE_EXTRACTION_TEMPLATE,
-    UNTYPED_GRAPH_EXTRACTION_PROMPT,
+    UNTYPED_GRAPH_EXTRACTION_PROMPT_ZH,
 )
 
 ENTITY_EXTRACTION_FILENAME = "entity_extraction.txt"
@@ -44,7 +44,7 @@ def create_entity_extraction_prompt(
     - str: The entity extraction prompt
     """
     prompt = (
-        (GRAPH_EXTRACTION_JSON_PROMPT if json_mode else GRAPH_EXTRACTION_PROMPT)
+        (GRAPH_EXTRACTION_JSON_PROMPT_ZH if json_mode else GRAPH_EXTRACTION_PROMPT_ZH)
         if entity_types
         else UNTYPED_GRAPH_EXTRACTION_PROMPT
     )

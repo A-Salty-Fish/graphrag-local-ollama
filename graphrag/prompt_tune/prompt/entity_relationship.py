@@ -130,3 +130,137 @@ Text: {input_text}
 ######################
 Output:
 """
+
+
+# Copyright (c) 2024 Microsoft Corporation.
+# Licensed under the MIT License
+
+"""Fine-tuning prompts for entity relationship generation."""
+
+ENTITY_RELATIONSHIPS_GENERATION_PROMPT_ZH = """
+目标- - - - - -
+给定一个可能与该活动相关的文本文档和一组实体类型，从文本中识别出这些类型的所有实体以及识别出的实体之间的所有关系。
+
+步骤,
+1. 识别所有实体。对于每个识别出的实体，提取以下信息:
+—entity_name:实体名称，首字母大写
+—entity_type:以下类型之一:[{entity_types}]
+- entity_description:实体属性和活动的综合描述
+格式化每个实体，包括在开始和结束的括号，作为("entity"{{tuple_delimiter}}<entity_name>{{tuple_delimiter}}<entity_type>{{tuple_delimiter}}<entity_description>)
+例如:("entity"{{tuple_delimiter}}"Microsoft"{{tuple_delimiter}}"organization"{{tuple_delimiter}}"Microsoft是一家技术公司")
+
+2. 从步骤1中确定的实体中，找出彼此* *明显相关* *的所有对(source_entity, target_entity)。
+对于每一对相关实体，提取以下信息:
+—source_entity:源实体的名称，在步骤1中识别
+—“target_entity”:目标实体的名称，在步骤1中识别
+- relationship_description:解释为什么你认为源实体和目标实体彼此相关
+—relationship_strength: 1 ~ 10之间的整数分数，表示源实体和目标实体之间的关系强度
+格式化每个关系，包括在开始和结束的括号，作为("relationship"{{tuple_delimiter}}<source_entity>{{tuple_delimiter}}<target_entity>{{tuple_delimiter}}<relationship_description>{{tuple_delimiter}}<relationship_strength>)
+例如:("relationship"{{tuple_delimiter}}"company A"{{tuple_delimiter}}"person A"{{tuple_delimiter}}"公司A目前属于person A"{{tuple_delimiter}}8)
+
+3. 将英文输出作为步骤1和步骤2中确定的所有实体和关系的单个列表返回。使用**{{record_delimiter}}**作为列表分隔符。
+
+4. 完成后，输出{{completion_delimiter}}。
+
+无论数据-
+######################
+entity_types: {entity_types}
+文字:{input_text}
+######################
+输出:
+"""
+
+ENTITY_RELATIONSHIPS_GENERATION_JSON_PROMPT_ZH = """
+目标- - - - - -
+给定一个可能与该活动相关的文本文档和一组实体类型，从文本中识别出这些类型的所有实体以及识别出的实体之间的所有关系。
+
+步骤,
+1. 识别所有实体。对于每个识别出的实体，提取以下信息:
+—entity_name:实体名称，首字母大写
+—entity_type:以下类型之一:[{entity_types}]
+- entity_description:实体属性和活动的综合描述
+
+使用以下格式将每个实体输出格式化为JSON条目:
+
+{{"name": <实体名称>，"type": <类型>，"description": <实体描述>}}
+
+2. 从步骤1中确定的实体中，找出彼此* *明显相关* *的所有对(source_entity, target_entity)。
+对于每一对相关实体，提取以下信息:
+—source_entity:源实体的名称，在步骤1中识别
+—“target_entity”:目标实体的名称，在步骤1中识别
+- relationship_description:解释为什么你认为源实体和目标实体彼此相关
+—relationship_strength: 1 ~ 10之间的整数分数，表示源实体和目标实体之间的关系强度
+
+使用以下格式将每个关系格式化为JSON条目:
+
+{{"source": <source_entity>， "target": <target_entity>， "relationship": <relationship_description>， "relationship_strength": <relationship_strength>}}
+
+3. 返回英文输出，作为步骤1和步骤2中确定的所有JSON实体和关系的单个列表。
+
+无论数据-
+######################
+entity_types: {entity_types}
+文字:{input_text}
+######################
+输出:
+"""
+
+UNTYPED_ENTITY_RELATIONSHIPS_GENERATION_PROMPT_ZH = """
+目标- - - - - -
+给定一个可能与该活动相关的文本文档，首先确定文本中所需的所有实体，以便捕获文本中的信息和想法。
+接下来，报告已识别实体之间的所有关系。
+
+步骤,
+1. 识别所有实体。对于每个识别出的实体，提取以下信息:
+—entity_name:实体名称，首字母大写
+- entity_type:为实体建议几个标签或类别。类别不应具体，而应尽可能一般。
+- entity_description:实体属性和活动的综合描述
+将每个实体格式化为("entity"{{tuple_delimiter}}<entity_name>{{tuple_delimiter}}<entity_type>{{tuple_delimiter}}<entity_description>
+
+2. 从步骤1中确定的实体中，找出彼此* *明显相关* *的所有对(source_entity, target_entity)。
+对于每一对相关实体，提取以下信息:
+—source_entity:源实体的名称，在步骤1中识别
+—“target_entity”:目标实体的名称，在步骤1中识别
+- relationship_description:解释为什么你认为源实体和目标实体彼此相关
+- relationship_strength:一个数值分数，表示源实体和目标实体之间关系的强度
+将每个关系格式化为("relationship"{{tuple_delimiter}}<source_entity>{{tuple_delimiter}}<target_entity>{{tuple_delimiter}}<relationship_description>{{tuple_delimiter}}<relationship_strength>)
+
+3. 将英文输出作为步骤1和步骤2中确定的所有实体和关系的单个列表返回。使用**{{record_delimiter}}**作为列表分隔符。
+
+4. 完成时，输出{{completion_delimiter}}
+
+######################
+的例子,
+######################
+文本:
+美联储定于周二和周三举行会议，计划在周三美国东部时间下午2点公布最新政策决定，之后将举行新闻发布会，美联储主席鲍威尔将回答记者提问。投资者预计，联邦公开市场委员会(fomc)将维持基准利率在5.25%-5.5%的区间不变。
+######################
+输出:
+(“entity”{{tuple_delimiter}}FED{{tuple_delimiter}}ORGANIZATION{{tuple_delimiter}}美联储是美联储，它将在周二和周三设定利率)
+{{record_delimiter}}
+(“entity”{{tuple_delimiter}}JEROME POWELL{{tuple_delimiter}}PERSON{{tuple_delimiter}} JEROME POWELL是美联储主席)
+{{record_delimiter}}
+(“entity”{{tuple_delimiter}}联邦公开市场委员会(FEDERAL OPEN MARKET COMMITTEE) {{tuple_delimiter}}ORGANIZATION{{tuple_delimiter}}联邦储备委员会(FEDERAL Reserve COMMITTEE)对利率和美国货币供应量的增长做出关键决定)
+{{record_delimiter}}
+("relationship"{{tuple_delimiter}}JEROME POWELL{{tuple_delimiter}}FED{{tuple_delimiter}} JEROME POWELL是美联储主席，将在新闻发布会上回答问题{{tuple_delimiter}}9)
+{{completion_delimiter}}
+######################
+文本:
+周四，Arm的股票在纳斯达克上市首日大涨。但IPO专家警告说，这家英国芯片制造商在公开市场的首次亮相并不能预示其他新上市公司的表现。
+
+Arm曾是一家上市公司，2016年被软银(SoftBank)私有化。这家知名的芯片设计师表示，99%的高端智能手机都采用了这种芯片。
+######################
+输出:
+(“entity”{{tuple_delimiter}}ARM{{tuple_delimiter}}组织，公司{{tuple_delimiter}}ARM是目前在纳斯达克上市的股票，它支持99%的高级智能手机)
+{{record_delimiter}}
+(“entity”{{tuple_delimiter}}软银{{tuple_delimiter}}组织，公司{{tuple_delimiter}}软银是一个以前拥有Arm的公司)
+{{record_delimiter}}
+(“relationship”{{tuple_delimiter}}ARM{{tuple_delimiter}}SOFTBANK{{tuple_delimiter}}软银从2016年起一直拥有ARM{{tuple_delimiter}} 5)
+{{completion_delimiter}}
+######################
+无论数据-
+######################
+文字:{input_text}
+######################
+输出:
+"""

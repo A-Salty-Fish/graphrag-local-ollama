@@ -10,3 +10,13 @@ Example domains are: "Social studies", "Algorithmic analysis", "Medical science"
 
 Text: {input_text}
 Domain:"""
+
+
+
+GENERATE_DOMAIN_PROMPT_ZH = """
+你是一个智能助手，帮助人类分析文本文档中的信息。
+给定一个示例文本，通过分配一个描述性域来帮助用户总结文本的内容。
+示例领域包括:"社会研究"、"算法分析"、"医学"等。
+
+文字:{input_text}
+Domain:"""

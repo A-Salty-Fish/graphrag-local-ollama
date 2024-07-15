@@ -26,6 +26,7 @@ from graphrag.query.structured_search.global_search.callbacks import (
 )
 from graphrag.query.structured_search.global_search.map_system_prompt import (
     MAP_SYSTEM_PROMPT,
+    MAP_SYSTEM_PROMPT_ZH
 )
 from graphrag.query.structured_search.global_search.reduce_system_prompt import (
     GENERAL_KNOWLEDGE_INSTRUCTION,
@@ -63,7 +64,7 @@ class GlobalSearch(BaseSearch):
         llm: BaseLLM,
         context_builder: GlobalContextBuilder,
         token_encoder: tiktoken.Encoding | None = None,
-        map_system_prompt: str = MAP_SYSTEM_PROMPT,
+        map_system_prompt: str = MAP_SYSTEM_PROMPT_ZH,
         reduce_system_prompt: str = REDUCE_SYSTEM_PROMPT,
         response_type: str = "multiple paragraphs",
         allow_general_knowledge: bool = False,

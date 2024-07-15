@@ -1,0 +1,302 @@
+﻿[
+  {
+    "n": {
+      "identity": 345,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "Python 基础"
+      },
+      "elementId": "345"
+    }
+  },
+  {
+    "n": {
+      "identity": 346,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "变量"
+      },
+      "elementId": "346"
+    }
+  },
+  {
+    "n": {
+      "identity": 347,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "定义变量"
+      },
+      "elementId": "347"
+    }
+  },
+  {
+    "n": {
+      "identity": 348,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "整数变量"
+      },
+      "elementId": "348"
+    }
+  },
+  {
+    "n": {
+      "identity": 349,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "浮点变量"
+      },
+      "elementId": "349"
+    }
+  },
+  {
+    "n": {
+      "identity": 350,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "字符串变量"
+      },
+      "elementId": "350"
+    }
+  },
+  {
+    "n": {
+      "identity": 351,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "布尔变量"
+      },
+      "elementId": "351"
+    }
+  },
+  {
+    "n": {
+      "identity": 352,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "列表变量"
+      },
+      "elementId": "352"
+    }
+  },
+  {
+    "n": {
+      "identity": 353,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "元组变量"
+      },
+      "elementId": "353"
+    }
+  },
+  {
+    "n": {
+      "identity": 354,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "字典变量"
+      },
+      "elementId": "354"
+    }
+  },
+  {
+    "n": {
+      "identity": 355,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "集合变量"
+      },
+      "elementId": "355"
+    }
+  },
+  {
+    "n": {
+      "identity": 356,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "变量命名规则"
+      },
+      "elementId": "356"
+    }
+  },
+  {
+    "n": {
+      "identity": 357,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "有效命名"
+      },
+      "elementId": "357"
+    }
+  },
+  {
+    "n": {
+      "identity": 358,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "无效命名"
+      },
+      "elementId": "358"
+    }
+  },
+  {
+    "n": {
+      "identity": 359,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "数据类型"
+      },
+      "elementId": "359"
+    }
+  },
+  {
+    "n": {
+      "identity": 360,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "整数"
+      },
+      "elementId": "360"
+    }
+  },
+  {
+    "n": {
+      "identity": 361,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "二进制表示"
+      },
+      "elementId": "361"
+    }
+  },
+  {
+    "n": {
+      "identity": 362,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "八进制表示"
+      },
+      "elementId": "362"
+    }
+  },
+  {
+    "n": {
+      "identity": 363,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "十进制表示"
+      },
+      "elementId": "363"
+    }
+  },
+  {
+    "n": {
+      "identity": 364,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "十六进制表示"
+      },
+      "elementId": "364"
+    }
+  },
+  {
+    "n": {
+      "identity": 365,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "浮点数"
+      },
+      "elementId": "365"
+    }
+  },
+  {
+    "n": {
+      "identity": 366,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "科学计数法"
+      },
+      "elementId": "366"
+    }
+  },
+  {
+    "n": {
+      "identity": 367,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "舍入误差"
+      },
+      "elementId": "367"
+    }
+  },
+  {
+    "n": {
+      "identity": 368,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "字符串"
+      },
+      "elementId": "368"
+    }
+  },
+  {
+    "n": {
+      "identity": 369,
+      "labels": [
+        "Entity"
+      ],
+      "properties": {
+        "name": "字符串操作"
+      },
+      "elementId": "369"
+    }
+  }
+]

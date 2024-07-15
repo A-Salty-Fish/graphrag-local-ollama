@@ -73,6 +73,7 @@ if __name__ == "__main__":
     if args.overlay_defaults and not args.config:
         parser.error("--overlay-defaults requires --config")
 
+    # python -m graphrag.index --init --root ./ragtest
     index_cli(
         root=args.root,
         verbose=args.verbose or False,

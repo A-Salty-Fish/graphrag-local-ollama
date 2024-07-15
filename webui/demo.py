@@ -8,7 +8,7 @@ from graphrag.query.cli import run_global_search, run_local_search
 def greet(query):
     return run_global_search(
         None,
-        './ragtest',
+        '../ragtest',
         0,
         'Multiple Paragraphs',
         query,
